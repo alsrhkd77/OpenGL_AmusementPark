@@ -41,19 +41,19 @@ float WheelRot;
 float VikingRot;
 float VikingAngle = 3.0;
 float DropTowerMove = -27.0;
-float DropToewrUpdown = 0;	// 0 = ¿Ã¶ó°¡±â, 1 = ³»·Á°¡±â
+float DropToewrUpdown = 0;	// 0 = ì˜¬ë¼ê°€ê¸°, 1 = ë‚´ë ¤ê°€ê¸°
 int WorldTime = 0;
 int SkyColor[3] = { 165, 205, 255 };
 int mousecheck = 0;
-int View = 0;	//½ÃÁ¡  0=3ÀÎÄª, 1= ÁÖÀÎ°ø 1ÀÎÄª
+int View = 0;	//ì‹œì   0=3ì¸ì¹­, 1= ì£¼ì¸ê³µ 1ì¸ì¹­
 int RolPosition[3] = { 0,485,483 };
 int RolSpeed = 1;
 int HeroMoving = 0;
 int HeroMoveCheck = 0;
 int DropTowerDelay = 0;
-int OnRide = 0;	// 0 = ¾ÈÅ½, 1 = ¹ÙÀÌÅ·, 2 = °ü¶÷Â÷, 3 = ÀÚÀÌµå·Ó, 4 = ·Ñ·¯ÄÚ½ºÅÍ  - ½ÃÁ¡º¯È¯½Ã °ü¶÷Â÷ ½áµµµÉµí, ½ÃÁ¡ ´Ù½Ã µ¹¾Æ¿Ã¶§ À§Ä¡ ÃÊ±âÈ­ ÇÏ°í ride 0À¸·Î ¸¸µé±â
+int OnRide = 0;	// 0 = ì•ˆíƒ, 1 = ë°”ì´í‚¹, 2 = ê´€ëŒì°¨, 3 = ìì´ë“œë¡­, 4 = ë¡¤ëŸ¬ì½”ìŠ¤í„°  - ì‹œì ë³€í™˜ì‹œ ê´€ëŒì°¨ ì¨ë„ë ë“¯, ì‹œì  ë‹¤ì‹œ ëŒì•„ì˜¬ë•Œ ìœ„ì¹˜ ì´ˆê¸°í™” í•˜ê³  ride 0ìœ¼ë¡œ ë§Œë“¤ê¸°
 int FireworkTail = 0;
-int FireworkProgress = 0;	//ºÒ²É³îÀÌ ÁøÇà»óÈ²
+int FireworkProgress = 0;	//ë¶ˆê½ƒë†€ì´ ì§„í–‰ìƒí™©
 int FireworkTime = 0;
 
 void MakeCloud(float x = 0.0, float y = 0.0, float z = 0.0, float scale = 1.0) {
@@ -94,7 +94,7 @@ void ResetHero() {
 }
 
 void ViewMoveRange() {
-	//¹ÛÀ¸·Î ³ª°¡¸é À§Ä¡ ÃÊ±âÈ­
+	//ë°–ìœ¼ë¡œ ë‚˜ê°€ë©´ ìœ„ì¹˜ ì´ˆê¸°í™”
 	if (ViewMoveX > 34.5) {
 		ResetView();
 	}
@@ -109,121 +109,121 @@ void ViewMoveRange() {
 	}
 }
 
-int HeroMoveRange(int Value) {	//ÀÌµ¿°¡´ÉÇÑ ±¸°£ÀÎÁö È®ÀÎ / 1=ÀÌµ¿°¡´É 2=ÀÌµ¿ºÒ°¡
+int HeroMoveRange(int Value) {	//ì´ë™ê°€ëŠ¥í•œ êµ¬ê°„ì¸ì§€ í™•ì¸ / 1=ì´ë™ê°€ëŠ¥ 2=ì´ë™ë¶ˆê°€
 	int result;
 
 	result = 1;
 
-	if (Value == 1) {	//+z¹æÇâ
-		if (HeroMoveZ == -28.0&&HeroMoveX >= 29.5&&HeroMoveX <= 32.0) {		//·Ñ·¯ÄÚ½ºÅÍ ¸ÅÇ¥¼Ò
+	if (Value == 1) {	//+zë°©í–¥
+		if (HeroMoveZ == -28.0&&HeroMoveX >= 29.5&&HeroMoveX <= 32.0) {		//ë¡¤ëŸ¬ì½”ìŠ¤í„° ë§¤í‘œì†Œ
 			result = 0;
 		}
-		if (HeroMoveZ == 9.0 && HeroMoveX <= 34.0&&HeroMoveX >= 21.0) {		//·Ñ·¯ÄÚ½ºÅÍ È¸Àü±¸°£
+		if (HeroMoveZ == 9.0 && HeroMoveX <= 34.0&&HeroMoveX >= 21.0) {		//ë¡¤ëŸ¬ì½”ìŠ¤í„° íšŒì „êµ¬ê°„
 			result = 0;
 		}
-		if (HeroMoveZ == 10.0 && HeroMoveX <= 17.5&&HeroMoveX >= 13.5) {	//¹ÙÀÌÅ· ¸ÅÇ¥¼Ò
+		if (HeroMoveZ == 10.0 && HeroMoveX <= 17.5&&HeroMoveX >= 13.5) {	//ë°”ì´í‚¹ ë§¤í‘œì†Œ
 			result = 0;
 		}
-		if (HeroMoveZ == 12.0 && HeroMoveX <= 19.5&&HeroMoveX >= 11.0) {	//¹ÙÀÌÅ·
+		if (HeroMoveZ == 12.0 && HeroMoveX <= 19.5&&HeroMoveX >= 11.0) {	//ë°”ì´í‚¹
 			result = 0;
 		}
-		if (HeroMoveZ == -3.5&&HeroMoveX <= 9.5&&HeroMoveX >= -9.5) {		//°ü¶÷Â÷
+		if (HeroMoveZ == -3.5&&HeroMoveX <= 9.5&&HeroMoveX >= -9.5) {		//ê´€ëŒì°¨
 			result = 0;
 		}
-		if (HeroMoveZ == -6.0&&HeroMoveX <= 2.0&&HeroMoveX >= -2.0) {		//°ü¶÷Ä¡ ¸ÅÇ¥¼Ò
+		if (HeroMoveZ == -6.0&&HeroMoveX <= 2.0&&HeroMoveX >= -2.0) {		//ê´€ëŒì¹˜ ë§¤í‘œì†Œ
 			result = 0;
 		}
-		if (HeroMoveZ == -23.5&&HeroMoveX <= -11.5&&HeroMoveX >= 14.5) {	//ÀÚÀÌµå·Ó ¸ÅÇ¥¼Ò
+		if (HeroMoveZ == -23.5&&HeroMoveX <= -11.5&&HeroMoveX >= 14.5) {	//ìì´ë“œë¡­ ë§¤í‘œì†Œ
 			result = 0;
 		}
-		if (HeroMoveZ == -28.0 && HeroMoveX <= -14.5&&HeroMoveX >= -28.0) {		//ÀÚÀÌµå·Ó
+		if (HeroMoveZ == -28.0 && HeroMoveX <= -14.5&&HeroMoveX >= -28.0) {		//ìì´ë“œë¡­
 			result = 0;
 		}
-		if (HeroMoveZ>= 34.0) {		//¸Ê ³¡
-			result = 0;
-		}
-	}
-	else if (Value == 2) {	//-z¹æÇâ
-		if (HeroMoveZ == 26.0 && HeroMoveX <= 34.0 && HeroMoveX >= 21.0) {	//·Ñ·¯ÄÚ½ºÅÍ È¸Àü±¸°£
-			result = 0;
-		}
-		if (HeroMoveZ == 18.0&&HeroMoveX <= 19.5 && HeroMoveX >= 11.0) {	//¹ÙÀÌÅ·
-			result = 0;
-		}
-		if (HeroMoveZ == 1.5&&HeroMoveX <= 9.5&&HeroMoveX >= -9.5) {	//°ü¶÷Â÷
-			result = 0;
-		}
-		if (HeroMoveZ == -8.0&&HeroMoveX <= 34.0&&HeroMoveX >= 32.0) {	//·Ñ·¯ÄÚ½ºÅÍ ½ÃÀÛºÎºĞ
-			result = 0;
-		}
-		if (HeroMoveZ == -24.0&&HeroMoveX <= 32.0 && HeroMoveX >= 29.5) {	//·Ñ·¯ÄÚ½ºÅÍ ¸ÅÇ¥¼Ò
-			result = 0;
-		}
-		if (HeroMoveZ == -30.5&&HeroMoveX <= 30.0&&HeroMoveX >= -6.0) {	//·Ñ·¯ÄÚ½ºÅÍ ¿À¸£¸· ½ÃÀÛºÎºĞ
-			result = 0;
-		}
-		if (HeroMoveZ == -14.0&&HeroMoveX <= -14.5&&HeroMoveX >= -28.0) {	//ÀÚÀÌµå·Ó
-			result = 0;
-		}
-		if (HeroMoveZ == -19 && HeroMoveX <= -11.5&&HeroMoveX >= -14.5) {	//ÀÚÀÌµå·Ó ¸ÅÇ¥¼Ò
-			result = 0;
-		}
-		if (HeroMoveZ <= -34.0) {	//¸Ê ³¡
+		if (HeroMoveZ>= 34.0) {		//ë§µ ë
 			result = 0;
 		}
 	}
-	else if (Value == 3) {	//+x¹æÇâ
-		if (HeroMoveX == -28.0&&HeroMoveZ <= -14.0&&HeroMoveZ >= -28.0) {	//ÀÚÀÌµå·Ó
+	else if (Value == 2) {	//-zë°©í–¥
+		if (HeroMoveZ == 26.0 && HeroMoveX <= 34.0 && HeroMoveX >= 21.0) {	//ë¡¤ëŸ¬ì½”ìŠ¤í„° íšŒì „êµ¬ê°„
 			result = 0;
 		}
-		if (HeroMoveX == -9.5&&HeroMoveZ <= 1.5&&HeroMoveZ >= -3.5) {	//°ü¶÷Â÷
+		if (HeroMoveZ == 18.0&&HeroMoveX <= 19.5 && HeroMoveX >= 11.0) {	//ë°”ì´í‚¹
 			result = 0;
 		}
-		if (HeroMoveX == -2.0&&HeroMoveZ <= -3.5&&HeroMoveZ >= -5.0) {	//°ü¶÷Â÷ ¸ÅÇ¥¼Ò
+		if (HeroMoveZ == 1.5&&HeroMoveX <= 9.5&&HeroMoveX >= -9.5) {	//ê´€ëŒì°¨
 			result = 0;
 		}
-		if (HeroMoveX == 11.0&&HeroMoveZ <= 18.0&&HeroMoveZ >= 12.0) {	//¹ÙÀÌÅ·
+		if (HeroMoveZ == -8.0&&HeroMoveX <= 34.0&&HeroMoveX >= 32.0) {	//ë¡¤ëŸ¬ì½”ìŠ¤í„° ì‹œì‘ë¶€ë¶„
 			result = 0;
 		}
-		if (HeroMoveX == 13.5&&HeroMoveZ <= 12.0&&HeroMoveZ >= 10.0) {	//¹ÙÀÌÅ· ¸ÅÇ¥¼Ò
+		if (HeroMoveZ == -24.0&&HeroMoveX <= 32.0 && HeroMoveX >= 29.5) {	//ë¡¤ëŸ¬ì½”ìŠ¤í„° ë§¤í‘œì†Œ
 			result = 0;
 		}
-		if (HeroMoveX == 21.0&&HeroMoveZ <= 26.0&&HeroMoveZ >= 9) {	//·Ñ·¯ÄÚ½ºÅÍ È¸ÀüºÎºĞ
+		if (HeroMoveZ == -30.5&&HeroMoveX <= 30.0&&HeroMoveX >= -6.0) {	//ë¡¤ëŸ¬ì½”ìŠ¤í„° ì˜¤ë¥´ë§‰ ì‹œì‘ë¶€ë¶„
 			result = 0;
 		}
-		if (HeroMoveX == -6.0&&HeroMoveZ <= -30.5&&HeroMoveZ >= -34.0) {	//·Ñ·ÎÄÚ½ºÅÍ ¿À¸£¸· ºÎºĞ
+		if (HeroMoveZ == -14.0&&HeroMoveX <= -14.5&&HeroMoveX >= -28.0) {	//ìì´ë“œë¡­
 			result = 0;
 		}
-		if (HeroMoveX == 30.0&&HeroMoveZ <= -28.0&&HeroMoveZ >= -30.5) {	//·Ñ·¯ÄÚ½ºÅÍ ¸ÅÇ¥¼Ò ¿·1
+		if (HeroMoveZ == -19 && HeroMoveX <= -11.5&&HeroMoveX >= -14.5) {	//ìì´ë“œë¡­ ë§¤í‘œì†Œ
 			result = 0;
 		}
-		if (HeroMoveX == 32.0&&HeroMoveZ <= -8.0&&HeroMoveZ >= -24.0) {	//·Ñ·¯ÄÚ½ºÅÍ ¸ÅÇ¥¼Ò ¿·2
-			result = 0;
-		}
-		if (HeroMoveX == 29.5&&HeroMoveZ <= -24.0&&HeroMoveZ >= -28.0) {	//·Ñ·¯ÄÚ½ºÅÍ ¸ÅÇ¥¼Ò
-			result = 0;
-		}
-		if (HeroMoveX >= 34.0) {	//¸Ê ³¡
+		if (HeroMoveZ <= -34.0) {	//ë§µ ë
 			result = 0;
 		}
 	}
-	else {	//-x¹æÇâ
-		if (HeroMoveX == 19.5&&HeroMoveZ <= 18.0&&HeroMoveZ >= 12.0) {	//¹ÙÀÌÅ·
+	else if (Value == 3) {	//+xë°©í–¥
+		if (HeroMoveX == -28.0&&HeroMoveZ <= -14.0&&HeroMoveZ >= -28.0) {	//ìì´ë“œë¡­
 			result = 0;
 		}
-		if (HeroMoveX == 17.5&&HeroMoveZ <= 12.0&&HeroMoveZ >= 10.0) {	//¹ÙÀÌÅ· ¸ÅÇ¥¼Ò
+		if (HeroMoveX == -9.5&&HeroMoveZ <= 1.5&&HeroMoveZ >= -3.5) {	//ê´€ëŒì°¨
 			result = 0;
 		}
-		if (HeroMoveX == 9.5&&HeroMoveZ <= 1.5&&HeroMoveZ >= -3.5) {	//°ü¶÷Â÷
+		if (HeroMoveX == -2.0&&HeroMoveZ <= -3.5&&HeroMoveZ >= -5.0) {	//ê´€ëŒì°¨ ë§¤í‘œì†Œ
 			result = 0;
 		}
-		if (HeroMoveX == 2.0&&HeroMoveZ <= -3.5&&HeroMoveZ >= -6.0) {	//°ü¶÷Â÷ ¸ÅÇ¥¼Ò
+		if (HeroMoveX == 11.0&&HeroMoveZ <= 18.0&&HeroMoveZ >= 12.0) {	//ë°”ì´í‚¹
 			result = 0;
 		}
-		if (HeroMoveX == -11.5&&HeroMoveZ <= -19.0&&HeroMoveZ >= -23.5) {	//ÀÚÀÌµå·Ó ¸ÅÇ¥¼Ò
+		if (HeroMoveX == 13.5&&HeroMoveZ <= 12.0&&HeroMoveZ >= 10.0) {	//ë°”ì´í‚¹ ë§¤í‘œì†Œ
 			result = 0;
 		}
-		if (HeroMoveX == -14.5&&HeroMoveZ <= -14.0&&HeroMoveZ >= -28.0) {	//ÀÚÀÌµå·Ó
+		if (HeroMoveX == 21.0&&HeroMoveZ <= 26.0&&HeroMoveZ >= 9) {	//ë¡¤ëŸ¬ì½”ìŠ¤í„° íšŒì „ë¶€ë¶„
+			result = 0;
+		}
+		if (HeroMoveX == -6.0&&HeroMoveZ <= -30.5&&HeroMoveZ >= -34.0) {	//ë¡¤ë¡œì½”ìŠ¤í„° ì˜¤ë¥´ë§‰ ë¶€ë¶„
+			result = 0;
+		}
+		if (HeroMoveX == 30.0&&HeroMoveZ <= -28.0&&HeroMoveZ >= -30.5) {	//ë¡¤ëŸ¬ì½”ìŠ¤í„° ë§¤í‘œì†Œ ì˜†1
+			result = 0;
+		}
+		if (HeroMoveX == 32.0&&HeroMoveZ <= -8.0&&HeroMoveZ >= -24.0) {	//ë¡¤ëŸ¬ì½”ìŠ¤í„° ë§¤í‘œì†Œ ì˜†2
+			result = 0;
+		}
+		if (HeroMoveX == 29.5&&HeroMoveZ <= -24.0&&HeroMoveZ >= -28.0) {	//ë¡¤ëŸ¬ì½”ìŠ¤í„° ë§¤í‘œì†Œ
+			result = 0;
+		}
+		if (HeroMoveX >= 34.0) {	//ë§µ ë
+			result = 0;
+		}
+	}
+	else {	//-xë°©í–¥
+		if (HeroMoveX == 19.5&&HeroMoveZ <= 18.0&&HeroMoveZ >= 12.0) {	//ë°”ì´í‚¹
+			result = 0;
+		}
+		if (HeroMoveX == 17.5&&HeroMoveZ <= 12.0&&HeroMoveZ >= 10.0) {	//ë°”ì´í‚¹ ë§¤í‘œì†Œ
+			result = 0;
+		}
+		if (HeroMoveX == 9.5&&HeroMoveZ <= 1.5&&HeroMoveZ >= -3.5) {	//ê´€ëŒì°¨
+			result = 0;
+		}
+		if (HeroMoveX == 2.0&&HeroMoveZ <= -3.5&&HeroMoveZ >= -6.0) {	//ê´€ëŒì°¨ ë§¤í‘œì†Œ
+			result = 0;
+		}
+		if (HeroMoveX == -11.5&&HeroMoveZ <= -19.0&&HeroMoveZ >= -23.5) {	//ìì´ë“œë¡­ ë§¤í‘œì†Œ
+			result = 0;
+		}
+		if (HeroMoveX == -14.5&&HeroMoveZ <= -14.0&&HeroMoveZ >= -28.0) {	//ìì´ë“œë¡­
 			result = 0;
 		}
 		if (HeroMoveX <= -34.0) {
@@ -235,21 +235,21 @@ int HeroMoveRange(int Value) {	//ÀÌµ¿°¡´ÉÇÑ ±¸°£ÀÎÁö È®ÀÎ / 1=ÀÌµ¿°¡´É 2=ÀÌµ¿ºÒ°
 }
 
 void ChangeRide() {
-	if (HeroMoveX <= 17.5&&HeroMoveX >= 13.5&&HeroMoveZ <= 10.0&&HeroMoveZ >= 9.0 && HeroRot == 180.0) {	//¹ÙÀÌÅ· ÅÂ¿ì±â
+	if (HeroMoveX <= 17.5&&HeroMoveX >= 13.5&&HeroMoveZ <= 10.0&&HeroMoveZ >= 9.0 && HeroRot == 180.0) {	//ë°”ì´í‚¹ íƒœìš°ê¸°
 		OnRide = 1;
 	}
-	if (HeroMoveX <= 2.0&&HeroMoveX >= -2.0&&HeroMoveZ <= -5.0&&HeroMoveZ >= -6.0 && HeroRot == 180.0) {	//°ü¶÷Â÷ ÅÂ¿ì±â
+	if (HeroMoveX <= 2.0&&HeroMoveX >= -2.0&&HeroMoveZ <= -5.0&&HeroMoveZ >= -6.0 && HeroRot == 180.0) {	//ê´€ëŒì°¨ íƒœìš°ê¸°
 		OnRide = 2;
 	}
-	if (HeroMoveX <= -10.5&&HeroMoveX >= -11.5&&HeroMoveZ <= -19.0&&HeroMoveZ >= -23.5 && HeroRot == 90.0) {	//ÀÚÀÌµå·Ó ÅÂ¿ì±â
+	if (HeroMoveX <= -10.5&&HeroMoveX >= -11.5&&HeroMoveZ <= -19.0&&HeroMoveZ >= -23.5 && HeroRot == 90.0) {	//ìì´ë“œë¡­ íƒœìš°ê¸°
 		OnRide = 3;
 	}
-	if (HeroMoveX <= 30.5&&HeroMoveX >= 29.5&&HeroMoveZ <= -24.0&&HeroMoveZ >= -28 && HeroRot == -90.0) {	//·Ñ·¯ÄÚ½ºÅÍ ÅÂ¿ì±â
+	if (HeroMoveX <= 30.5&&HeroMoveX >= 29.5&&HeroMoveZ <= -24.0&&HeroMoveZ >= -28 && HeroRot == -90.0) {	//ë¡¤ëŸ¬ì½”ìŠ¤í„° íƒœìš°ê¸°
 		OnRide = 4;
 	}
 }
 
-void CalculateViewXA() {	//1ÀÎÄª½ÃÁ¡ÀÌµ¿ = xÃàÀ¸·Î++
+void CalculateViewXA() {	//1ì¸ì¹­ì‹œì ì´ë™ = xì¶•ìœ¼ë¡œ++
 	float ViewX;
 	float ViewZ;
 
@@ -260,7 +260,7 @@ void CalculateViewXA() {	//1ÀÎÄª½ÃÁ¡ÀÌµ¿ = xÃàÀ¸·Î++
 	ViewMoveZ = ViewMoveZ + ViewZ;
 }
 
-void CalculateViewZA() {	//1ÀÎÄª½ÃÁ¡ÀÌµ¿ = zÃàÀ¸·Î++
+void CalculateViewZA() {	//1ì¸ì¹­ì‹œì ì´ë™ = zì¶•ìœ¼ë¡œ++
 	float ViewX;
 	float ViewZ;
 
@@ -271,7 +271,7 @@ void CalculateViewZA() {	//1ÀÎÄª½ÃÁ¡ÀÌµ¿ = zÃàÀ¸·Î++
 	ViewMoveZ = ViewMoveZ + ViewZ;
 }
 
-void CalculateViewXM() {	//1ÀÎÄª½ÃÁ¡ÀÌµ¿ = xÃàÀ¸·Î--
+void CalculateViewXM() {	//1ì¸ì¹­ì‹œì ì´ë™ = xì¶•ìœ¼ë¡œ--
 	float ViewX;
 	float ViewZ;
 
@@ -282,7 +282,7 @@ void CalculateViewXM() {	//1ÀÎÄª½ÃÁ¡ÀÌµ¿ = xÃàÀ¸·Î--
 	ViewMoveZ = ViewMoveZ - ViewZ;
 }
 
-void CalculateViewZM() {	//1ÀÎÄª½ÃÁ¡ÀÌµ¿ = zÃàÀ¸·Î--
+void CalculateViewZM() {	//1ì¸ì¹­ì‹œì ì´ë™ = zì¶•ìœ¼ë¡œ--
 	float ViewX;
 	float ViewZ;
 
@@ -295,14 +295,14 @@ void CalculateViewZM() {	//1ÀÎÄª½ÃÁ¡ÀÌµ¿ = zÃàÀ¸·Î--
 
 void FireWork(int Tail) {
 	glPushMatrix();
-	glPushMatrix();	//¸öÅë
+	glPushMatrix();	//ëª¸í†µ
 	glScalef(0.7, 0.7, 0.7);
 	glutWireIcosahedron();
 	glPopMatrix();
 
 	glPointSize(1.5);
 
-	for (int i = 1; i <= Tail; i++) {	//²¿¸®
+	for (int i = 1; i <= Tail; i++) {	//ê¼¬ë¦¬
 		glTranslatef(0.0, -((float)i/60.0), 0.0);
 		glBegin(GL_POINTS);
 		glVertex3f(0.0, 0.0, 0.0);
@@ -312,9 +312,9 @@ void FireWork(int Tail) {
 	glPopMatrix();
 }
 
-void MakeFireWork() {	//Â¦ÅüÆøÁ×
+void MakeFireWork() {	//ì§í‰í­ì£½
 	glPushMatrix();
-	if (FireworkProgress <= 28) {	//»ó½Â
+	if (FireworkProgress <= 28) {	//ìƒìŠ¹
 		glTranslatef(0.0, -28.0 + (float)FireworkProgress, 0.0);
 		glPushMatrix();
 		FireWork(FireworkTail);
@@ -326,7 +326,7 @@ void MakeFireWork() {	//Â¦ÅüÆøÁ×
 		glTranslatef(0.0, -28.0 + (float)FireworkProgress, 0.0);
 		FireWork(FireworkTail);
 		glPopMatrix();
-		for (float j = 60.0; j <= 120.0; j = j + 60.0) {	//ÆÛÆ®¸®±â
+		for (float j = 60.0; j <= 120.0; j = j + 60.0) {	//í¼íŠ¸ë¦¬ê¸°
 			for (float i = 0.0; i <= 360.0; i = i + 60.0) {
 				glPushMatrix();
 				glRotatef(i, 0.0, 1.0, 0.0);
@@ -352,7 +352,7 @@ void PlayFireWork() {
 	}
 }
 
-void Hero() {	//ÁÖÀÎ°ø ±×¸®±â
+void Hero() {	//ì£¼ì¸ê³µ ê·¸ë¦¬ê¸°
 
 	glPushMatrix();
 	if (OnRide == 0) {
@@ -360,11 +360,11 @@ void Hero() {	//ÁÖÀÎ°ø ±×¸®±â
 		glRotatef(HeroRot, 0.0, 1.0, 0.0);
 	}
 
-	glPushMatrix();	//¸Ó¸®
+	glPushMatrix();	//ë¨¸ë¦¬
 		glTranslatef(0.0, 1.1, 0.0);
 		glColor3f((float)255 / 255.0, (float)222 / 255.0, (float)191 / 255.0);
 		glutSolidCube(1.0);
-		glPushMatrix();	//¿ŞÂÊ ´«
+		glPushMatrix();	//ì™¼ìª½ ëˆˆ
 			glTranslatef(0.2, 0.1, -0.4);
 			glColor3f(0.0, 0.0, 0.0);
 			glutSolidCube(0.25);
@@ -372,7 +372,7 @@ void Hero() {	//ÁÖÀÎ°ø ±×¸®±â
 			glColor3f(1.0, 1.0, 1.0);
 			glutSolidCube(0.15);
 		glPopMatrix();
-		glPushMatrix();	//¿À¸¥ÂÊ ´«
+		glPushMatrix();	//ì˜¤ë¥¸ìª½ ëˆˆ
 			glTranslatef(-0.2, 0.1, -0.4);
 			glColor3f(0.0, 0.0, 0.0);
 			glutSolidCube(0.25);
@@ -382,7 +382,7 @@ void Hero() {	//ÁÖÀÎ°ø ±×¸®±â
 		glPopMatrix();
 	glPopMatrix();
 
-	glPushMatrix();//¸öÅë
+	glPushMatrix();//ëª¸í†µ
 		glScalef(1.4, 2.0, 1.0);
 		glColor3f((float)255 / 255.0, (float)180 / 255.0, (float)190 / 255.0);
 		glutSolidCube(0.6);
@@ -390,7 +390,7 @@ void Hero() {	//ÁÖÀÎ°ø ±×¸®±â
 		glutWireCube(0.6);
 	glPopMatrix();
 
-	glPushMatrix();	//¿ŞÆÈ
+	glPushMatrix();	//ì™¼íŒ”
 		glTranslatef(0.6, 0.36, 0.0);
 		if (OnRide == 0) {
 			glRotatef(HeroMotion, 1.0, 0.0, 0.0);
@@ -406,7 +406,7 @@ void Hero() {	//ÁÖÀÎ°ø ±×¸®±â
 		glutWireCube(0.4);
 	glPopMatrix();
 
-	glPushMatrix();	//¿À¸¥ÆÈ
+	glPushMatrix();	//ì˜¤ë¥¸íŒ”
 		glTranslatef(-0.6, 0.36, 0.0);
 		if (OnRide == 0) {
 			glRotatef(-HeroMotion, 1.0, 0.0, 0.0);
@@ -422,8 +422,8 @@ void Hero() {	//ÁÖÀÎ°ø ±×¸®±â
 		glutWireCube(0.4);
 	glPopMatrix();
 
-	if (OnRide == 0 || OnRide == 3) {		//³îÀÌ±â±¸ Å¾½ÂÁßÀÌ ¾Æ´Ò°æ¿ì
-		glPushMatrix();	//¿ŞÂÊ´Ù¸®
+	if (OnRide == 0 || OnRide == 3) {		//ë†€ì´ê¸°êµ¬ íƒ‘ìŠ¹ì¤‘ì´ ì•„ë‹ê²½ìš°
+		glPushMatrix();	//ì™¼ìª½ë‹¤ë¦¬
 			if (OnRide == 0) {
 				glRotatef(-(HeroMotion / 2.0), 1.0, 0.0, 0.0);
 				}
@@ -437,7 +437,7 @@ void Hero() {	//ÁÖÀÎ°ø ±×¸®±â
 			glColor3f(0.0, 0.0, 0.0);
 			glutWireCube(0.4);
 		glPopMatrix();
-		glPushMatrix();	//¿À¸¥ÂÊ´Ù¸®
+		glPushMatrix();	//ì˜¤ë¥¸ìª½ë‹¤ë¦¬
 			if (OnRide == 0) {
 				glRotatef(HeroMotion / 2.0, 1.0, 0.0, 0.0);
 			}
@@ -456,12 +456,12 @@ void Hero() {	//ÁÖÀÎ°ø ±×¸®±â
 	glPopMatrix();
 }
 
-void Wheel() {		//°ü¶÷Â÷
+void Wheel() {		//ê´€ëŒì°¨
 	int color[3] = { 200,100,100 };
 	GLUquadricObj *pQuad;
 	pQuad = gluNewQuadric();
 
-	gluQuadricDrawStyle(pQuad, GLU_FILL);	//°ü¶÷Â÷ ±âµÕ
+	gluQuadricDrawStyle(pQuad, GLU_FILL);	//ê´€ëŒì°¨ ê¸°ë‘¥
 	glColor3f((float)127 / 255.0, (float)127 / 255.0, (float)127 / 255.0);
 	glPushMatrix();
 	glTranslatef(0.0, -13.2, 0.0);
@@ -470,26 +470,26 @@ void Wheel() {		//°ü¶÷Â÷
 	gluCylinder(pQuad, 0.4, 0.4, 15.0, 100, 100);
 	glPopMatrix();
 
-	gluQuadricDrawStyle(pQuad, GLU_LINE);	//°ü¶÷Â÷ ¹ÙÄû
-	glColor3f((float)50 / 255.0, (float)35 / 255.0, (float)20 / 255.0);	//¸öÅë»ö±ò
+	gluQuadricDrawStyle(pQuad, GLU_LINE);	//ê´€ëŒì°¨ ë°”í€´
+	glColor3f((float)50 / 255.0, (float)35 / 255.0, (float)20 / 255.0);	//ëª¸í†µìƒ‰ê¹”
 	glPushMatrix();
 	glTranslatef(0.0, -13.3, -2.5);
 	glRotatef(WheelRot, 0.0, 0.0, 1.0);
-	glLineWidth(3.0f);	//¹ÙÄû»ì ±½°Ô(¼±±½±â)
+	glLineWidth(3.0f);	//ë°”í€´ì‚´ êµµê²Œ(ì„ êµµê¸°)
 	gluCylinder(pQuad, 6.0, 6.0, 3.0, 10, 1);
 	gluDisk(pQuad, 0.0, 12.0, 10, 2);
 	glTranslatef(0.0, 0.0, 3.0);
 	gluDisk(pQuad, 0.0, 12.0, 10, 2);
-	glLineWidth(1.0f);	//¼±±½±â ¿ø»óº¹±¸
-	for (float angle = 0.0f; angle < (2.0f*GL_PI); angle = angle + (2.0f*GL_PI / 10.0f)) {	//°ü¶÷Â÷ ¾Ë¸ÍÀÌ
+	glLineWidth(1.0f);	//ì„ êµµê¸° ì›ìƒë³µêµ¬
+	for (float angle = 0.0f; angle < (2.0f*GL_PI); angle = angle + (2.0f*GL_PI / 10.0f)) {	//ê´€ëŒì°¨ ì•Œë§¹ì´
 		float WheelX = 12.0f*sin(angle);
 		float WheelY = 12.0f*cos(angle);
 		glPushMatrix();
 		glTranslatef(WheelX, WheelY, -1.5);
 		glRotatef(-WheelRot, 0.0, 0.0, 1.0);
-		glColor3f((float)color[0] / 255.0, (float)color[1] / 255.0, (float)color[2] / 255.0);	//¾Ë¸ÍÀÌ »ö±ò-»ö±ò¿©·¯°³
+		glColor3f((float)color[0] / 255.0, (float)color[1] / 255.0, (float)color[2] / 255.0);	//ì•Œë§¹ì´ ìƒ‰ê¹”-ìƒ‰ê¹”ì—¬ëŸ¬ê°œ
 		glutSolidCube(3.0);
-		glColor3f((float)0 / 255.0, (float)0 / 255.0, (float)0 / 255.0);	//Å×µÎ¸®
+		glColor3f((float)0 / 255.0, (float)0 / 255.0, (float)0 / 255.0);	//í…Œë‘ë¦¬
 		glutWireCube(3.0);
 		glPopMatrix();
 		color[0] = color[0] - 10;
@@ -498,7 +498,7 @@ void Wheel() {		//°ü¶÷Â÷
 	}
 	glPopMatrix();
 
-	gluQuadricDrawStyle(pQuad, GLU_FILL);	//°ü¶÷Â÷ ±âµÕ
+	gluQuadricDrawStyle(pQuad, GLU_FILL);	//ê´€ëŒì°¨ ê¸°ë‘¥
 	glColor3f((float)127 / 255.0, (float)127 / 255.0, (float)127 / 255.0);
 	glPushMatrix();
 	glTranslatef(0.0, -13.2, 0.0);
@@ -508,34 +508,34 @@ void Wheel() {		//°ü¶÷Â÷
 	glPopMatrix();
 }
 
-void Viking() {	//¹ÙÀÌÅ·
+void Viking() {	//ë°”ì´í‚¹
 	GLUquadricObj *pQuad;
 	pQuad = gluNewQuadric();
 
 	glPushMatrix();
-	glTranslatef(15.0, -23.0, 15.0);	//¹ÙÀÌÅ· À§Ä¡¼±Á¤ - x°ª,z°ª ¹Ù²Ü °Í
+	glTranslatef(15.0, -23.0, 15.0);	//ë°”ì´í‚¹ ìœ„ì¹˜ì„ ì • - xê°’,zê°’ ë°”ê¿€ ê²ƒ
 
-	glPushMatrix();//±âµÕ
+	glPushMatrix();//ê¸°ë‘¥
 	glRotatef(90.0, 1.0, 0.0, 0.0);
 	glTranslatef(0.0, 1.5, -0.3);
 	glColor3f(0.5, 0.5, 0.5);
 	gluCylinder(pQuad, 0.3, 0.3, 5.5, 100, 100);
 	glPopMatrix();
 
-	glPushMatrix();	//¸öÅë+Ãà
-	glRotatef(VikingRot, 0.0, 0.0, 1.0);	//·ÎÅ×ÀÌ¼Ç »õ·Î¸¸µé¾î¼­ µ¹¸±°Í
+	glPushMatrix();	//ëª¸í†µ+ì¶•
+	glRotatef(VikingRot, 0.0, 0.0, 1.0);	//ë¡œí…Œì´ì…˜ ìƒˆë¡œë§Œë“¤ì–´ì„œ ëŒë¦´ê²ƒ
 	glTranslatef(0.0, -3.0, 0.0);
 
 	if (OnRide == 1) {
-		glPushMatrix();	//ÁÖÀÎ°ø ÅÂ¿ì±â
+		glPushMatrix();	//ì£¼ì¸ê³µ íƒœìš°ê¸°
 		glTranslatef(0.0, 0.7, 0.0);
 		glRotatef(-90.0, 0.0, 1.0, 0.0);
 		Hero();
 		glPopMatrix();
 	}
 	
-	glPushMatrix();	//¸öÅë
-	glColor3f((float)235 / 255.0, (float)50 / 255.0, (float)50 / 255.0);	//¸öÅë»ö±ò-¼öÁ¤ÇÊ¿ä
+	glPushMatrix();	//ëª¸í†µ
+	glColor3f((float)235 / 255.0, (float)50 / 255.0, (float)50 / 255.0);	//ëª¸í†µìƒ‰ê¹”-ìˆ˜ì •í•„ìš”
 	glBegin(GL_POLYGON);
 	glVertex3f(-1.0, 1.0, 1.0);
 	glVertex3f(-2.0, 1.0, 0.0);
@@ -574,7 +574,7 @@ void Viking() {	//¹ÙÀÌÅ·
 	glEnd();
 	glPopMatrix();
 
-	glPushMatrix();	//¸öÃ¼¿Í Ãà ¿¬°á
+	glPushMatrix();	//ëª¸ì²´ì™€ ì¶• ì—°ê²°
 	glRotatef(90.0, 1.0, 0.0, 0.0);
 	glTranslatef(-0.1, 0.0, -3.1);
 	glRotatef(45.0, 0.0, 1.0, 0.0);
@@ -582,7 +582,7 @@ void Viking() {	//¹ÙÀÌÅ·
 	gluCylinder(pQuad, 0.2, 0.2, 2.8, 100, 100);
 	glPopMatrix();
 
-	glPushMatrix();	//¸öÃ¼¿Í Ãà ¿¬°á
+	glPushMatrix();	//ëª¸ì²´ì™€ ì¶• ì—°ê²°
 	glRotatef(90.0, 1.0, 0.0, 0.0);
 	glTranslatef(0.1, 0.0, -3.1);
 	glRotatef(-45.0, 0.0, 1.0, 0.0);
@@ -592,14 +592,14 @@ void Viking() {	//¹ÙÀÌÅ·
 
 	glPopMatrix();
 
-	glPushMatrix();//±âµÕ
+	glPushMatrix();//ê¸°ë‘¥
 	glRotatef(90.0, 1.0, 0.0, 0.0);
 	glTranslatef(0.0, -1.5, -0.3);
 	glColor3f(0.5, 0.5, 0.5);
 	gluCylinder(pQuad, 0.3, 0.3, 5.5, 100, 100);
 	glPopMatrix();
 
-	//±âµÕ»çÀÌ Ãà
+	//ê¸°ë‘¥ì‚¬ì´ ì¶•
 	glTranslatef(0.0, 0.0, -1.7);
 	gluCylinder(pQuad, 0.3, 0.3, 3.5, 100, 100);
 
@@ -628,7 +628,7 @@ void RolBoxHead() {
 			glutWireCube(1.0);
 		glPopMatrix();
 
-		//Ä³¸¯ÅÍ ÅÂ¿ì±â
+		//ìºë¦­í„° íƒœìš°ê¸°
 		if (OnRide == 4) {
 			glPushMatrix();
 			glTranslatef(0.0, 0.7, 0.0);
@@ -661,8 +661,8 @@ void RolRail() {
 	glTranslatef(33.0, -28.0, -27.0);
 	for (position = 0; position < 487; position++) {
 		glTranslatef(0.0, 0.0, -1.0);
-		glColor3f((float)140 / 255.0, (float)105 / 255.0, (float)60 / 255.0);	//¸öÅë»ö±ò
-		if (position >= 0 && position<9) {	//Ä¿ºê
+		glColor3f((float)140 / 255.0, (float)105 / 255.0, (float)60 / 255.0);	//ëª¸í†µìƒ‰ê¹”
+		if (position >= 0 && position<9) {	//ì»¤ë¸Œ
 			glRotatef(10.0, 0.0, 1.0, 0.0);
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 1.2, 50, 50);
@@ -671,7 +671,7 @@ void RolRail() {
 			glPopMatrix();
 		}
 
-		if (position == 37) {	//¿À¸£¸· °¡±â Àü
+		if (position == 37) {	//ì˜¤ë¥´ë§‰ ê°€ê¸° ì „
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 29.0, 50, 50);
 			glTranslatef(0.5, 0.0, 0.0);
@@ -679,7 +679,7 @@ void RolRail() {
 			glPopMatrix();
 			glRotatef(15.0, 1.0, 0.0, 0.0);
 		}
-		if (position >= 38 && position<42) {	//¿À¸£¸· 1 60µµ(+60µµ)
+		if (position >= 38 && position<42) {	//ì˜¤ë¥´ë§‰ 1 60ë„(+60ë„)
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 1.4, 50, 50);
 			glTranslatef(0.5, 0.0, 0.0);
@@ -689,7 +689,7 @@ void RolRail() {
 				glRotatef(15.0, 1.0, 0.0, 0.0);
 			}
 		}
-		if (position == 60) {	//±âµÕ
+		if (position == 60) {	//ê¸°ë‘¥
 			glPushMatrix();
 			glRotatef(30, 1.0, 0.0, 0.0);
 			gluCylinder(pQuad, 0.1, 0.1, 19.0, 50, 50);
@@ -697,7 +697,7 @@ void RolRail() {
 			gluCylinder(pQuad, 0.1, 0.1, 19.0, 50, 50);
 			glPopMatrix();
 		}
-		if (position == 77) {	//¿À¸£¸·
+		if (position == 77) {	//ì˜¤ë¥´ë§‰
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 37, 50, 50);
 			glTranslatef(0.5, 0.0, 0.0);
@@ -705,7 +705,7 @@ void RolRail() {
 			glPopMatrix();
 			glRotatef(-15.0, 1.0, 0.0, 0.0);
 		}
-		if (position >= 78 && position<82) {	//¿À¸£¸· 1 60µµ(+60µµ)
+		if (position >= 78 && position<82) {	//ì˜¤ë¥´ë§‰ 1 60ë„(+60ë„)
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 1.4, 50, 50);
 			glTranslatef(0.5, 0.0, 0.0);
@@ -715,21 +715,21 @@ void RolRail() {
 				glRotatef(-15.0, 1.0, 0.0, 0.0);
 			}
 		}
-		if (position == 82) {	//¿À¸£¸· µÚ Ä¿ºê Àü
+		if (position == 82) {	//ì˜¤ë¥´ë§‰ ë’¤ ì»¤ë¸Œ ì „
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 1.8, 50, 50);
 			glTranslatef(0.5, 0.0, 0.0);
 			gluCylinder(pQuad, 0.1, 0.1, 1.8, 50, 50);
 			glPopMatrix();
 
-			glPushMatrix();	//±âµÕ
+			glPushMatrix();	//ê¸°ë‘¥
 			glRotatef(90, 1.0, 0.0, 0.0);
 			gluCylinder(pQuad, 0.1, 0.1, 35.2, 50, 50);
 			glTranslatef(0.5, 0.0, 0.0);
 			gluCylinder(pQuad, 0.1, 0.1, 35.2, 50, 50);
 			glPopMatrix();
 		}
-		if (position >= 83 && position<92) {	//¿À¸£¸· µÚ Ä¿ºê
+		if (position >= 83 && position<92) {	//ì˜¤ë¥´ë§‰ ë’¤ ì»¤ë¸Œ
 			glRotatef(10.0, 0.0, 1.0, 0.0);
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 1.2, 50, 50);
@@ -740,7 +740,7 @@ void RolRail() {
 				glRotatef(-15.0, 1.0, 0.0, 0.0);
 			}
 		}
-		if (position >= 92 && position<96) {	//³»¸®¸· 1 -60µµ(-60µµ)
+		if (position >= 92 && position<96) {	//ë‚´ë¦¬ë§‰ 1 -60ë„(-60ë„)
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 1.4, 50, 50);
 			glTranslatef(0.5, 0.0, 0.0);
@@ -750,7 +750,7 @@ void RolRail() {
 				glRotatef(-15.0, 1.0, 0.0, 0.0);
 			}
 		}
-		if (position == 99) {	//±âµÕ
+		if (position == 99) {	//ê¸°ë‘¥
 			glPushMatrix();
 			glRotatef(150, 1.0, 0.0, 0.0);
 			gluCylinder(pQuad, 0.1, 0.1, 29.4, 50, 50);
@@ -766,7 +766,7 @@ void RolRail() {
 			glPopMatrix();
 			glRotatef(10.0, 1.0, 0.0, 0.0);
 		}
-		if (position >= 103 && position<112) {	//30µµ(+90µµ)
+		if (position >= 103 && position<112) {	//30ë„(+90ë„)
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 1.4, 50, 50);
 			glTranslatef(0.5, 0.0, 0.0);
@@ -784,7 +784,7 @@ void RolRail() {
 			glPopMatrix();
 			glRotatef(-10.0, 1.0, 0.0, 0.0);
 		}
-		if (position >= 115 && position<121) {	//-30µµ(-60µµ)
+		if (position >= 115 && position<121) {	//-30ë„(-60ë„)
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 1.4, 50, 50);
 			glTranslatef(0.5, 0.0, 0.0);
@@ -797,7 +797,7 @@ void RolRail() {
 				glRotatef(15.0, 0.0, 0.0, 1.0);
 			}
 		}
-		if (position == 116) {	//±âµÕ
+		if (position == 116) {	//ê¸°ë‘¥
 			glPushMatrix();
 			glRotatef(90, 1.0, 0.0, 0.0);
 			gluCylinder(pQuad, 0.1, 0.1, 27.4, 50, 50);
@@ -805,7 +805,7 @@ void RolRail() {
 			gluCylinder(pQuad, 0.1, 0.1, 27.4, 50, 50);
 			glPopMatrix();
 		}
-		if (position >= 121 && position<145) {	// ½ºÇÉÁøÇà±¸°£
+		if (position >= 121 && position<145) {	// ìŠ¤í•€ì§„í–‰êµ¬ê°„
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 1.4, 50, 50);
 			glTranslatef(0.5, 0.0, 0.0);
@@ -818,7 +818,7 @@ void RolRail() {
 				glRotatef(10.0, 1.0, 0.0, 0.0);
 			}
 		}
-		if (position >= 145 && position<154) {	//60µµ(+90µµ)
+		if (position >= 145 && position<154) {	//60ë„(+90ë„)
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 1.4, 50, 50);
 			glTranslatef(0.5, 0.0, 0.0);
@@ -828,7 +828,7 @@ void RolRail() {
 				glRotatef(10.0, 1.0, 0.0, 0.0);
 			}
 		}
-		if (position == 146) {	//±âµÕ
+		if (position == 146) {	//ê¸°ë‘¥
 			glPushMatrix();
 			glRotatef(90, 1.0, 0.0, 0.0);
 			gluCylinder(pQuad, 0.1, 0.1, 13.8, 50, 50);
@@ -844,7 +844,7 @@ void RolRail() {
 			glPopMatrix();
 			glRotatef(-15.0, 1.0, 0.0, 0.0);
 		}
-		if (position >= 155 && position<159) {	//³»¸®¸·ÄÚ³Ê Àü 0µµ(-60µµ)
+		if (position >= 155 && position<159) {	//ë‚´ë¦¬ë§‰ì½”ë„ˆ ì „ 0ë„(-60ë„)
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 1.4, 50, 50);
 			glTranslatef(0.5, 0.0, 0.0);
@@ -854,7 +854,7 @@ void RolRail() {
 				glRotatef(-15.0, 1.0, 0.0, 0.0);
 			}
 		}
-		if (position >= 159 && position<168) {	//Ã¹ ³»¸®¸· ÈÄ Ä¿ºê
+		if (position >= 159 && position<168) {	//ì²« ë‚´ë¦¬ë§‰ í›„ ì»¤ë¸Œ
 			glRotatef(10.0, 0.0, 1.0, 0.0);
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 1.2, 50, 50);
@@ -865,7 +865,7 @@ void RolRail() {
 				glRotatef(-15.0, 1.0, 0.0, 0.0);
 			}
 		}
-		if (position == 162) {	//Ä¿ºê±¸°£ ³» ±âµÕ
+		if (position == 162) {	//ì»¤ë¸Œêµ¬ê°„ ë‚´ ê¸°ë‘¥
 			glPushMatrix();
 			glRotatef(90, 1.0, 0.0, 0.0);
 			gluCylinder(pQuad, 0.1, 0.1, 19.5, 50, 50);
@@ -873,7 +873,7 @@ void RolRail() {
 			gluCylinder(pQuad, 0.1, 0.1, 19.5, 50, 50);
 			glPopMatrix();
 		}
-		if (position >= 168 && position<171) {	//³»¸®¸·2 -45µµ(-45µµ)
+		if (position >= 168 && position<171) {	//ë‚´ë¦¬ë§‰2 -45ë„(-45ë„)
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 1.4, 50, 50);
 			glTranslatef(0.5, 0.0, 0.0);
@@ -883,7 +883,7 @@ void RolRail() {
 				glRotatef(-15.0, 1.0, 0.0, 0.0);
 			}
 		}
-		if (position == 169) {	//±âµÕ
+		if (position == 169) {	//ê¸°ë‘¥
 			glPushMatrix();
 			glRotatef(135, 1.0, 0.0, 0.0);
 			gluCylinder(pQuad, 0.1, 0.1, 18.7, 50, 50);
@@ -891,7 +891,7 @@ void RolRail() {
 			gluCylinder(pQuad, 0.1, 0.1, 18.7, 50, 50);
 			glPopMatrix();
 		}
-		if (position == 183) {	//³»¸®¸· ½ÃÀÛ
+		if (position == 183) {	//ë‚´ë¦¬ë§‰ ì‹œì‘
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 13.0, 50, 50);
 			glTranslatef(0.5, 0.0, 0.0);
@@ -899,7 +899,7 @@ void RolRail() {
 			glPopMatrix();
 			glRotatef(10.0, 1.0, 0.0, 0.0);
 		}
-		if (position >= 184 && position<190) {	//°øÁßÁ¦ºñ Àü ³»¸®¸· ³¡
+		if (position >= 184 && position<190) {	//ê³µì¤‘ì œë¹„ ì „ ë‚´ë¦¬ë§‰ ë
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 1.4, 50, 50);
 			glTranslatef(0.5, 0.0, 0.0);
@@ -909,7 +909,7 @@ void RolRail() {
 				glRotatef(10.0, 1.0, 0.0, 0.0);
 			}
 		}
-		if (position == 190) {	//±âµÕ
+		if (position == 190) {	//ê¸°ë‘¥
 			glPushMatrix();
 			glRotatef(90, 1.0, 0.0, 0.0);
 			gluCylinder(pQuad, 0.1, 0.1, 4.5, 50, 50);
@@ -917,7 +917,7 @@ void RolRail() {
 			gluCylinder(pQuad, 0.1, 0.1, 4.5, 50, 50);
 			glPopMatrix();
 		}
-		if (position == 195) {	//°øÁßÁ¦ºñ Àü
+		if (position == 195) {	//ê³µì¤‘ì œë¹„ ì „
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 6.0, 50, 50);
 			glTranslatef(0.5, 0.0, 0.0);
@@ -926,7 +926,7 @@ void RolRail() {
 			glRotatef(-2.0, 0.0, 1.0, 0.0);
 			glRotatef(10.0, 1.0, 0.0, 0.0);
 		}
-		if (position >= 196 && position<231) {	//°øÁßÁ¦ºñ
+		if (position >= 196 && position<231) {	//ê³µì¤‘ì œë¹„
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 1.4, 50, 50);
 			glTranslatef(0.5, 0.0, 0.0);
@@ -940,7 +940,7 @@ void RolRail() {
 				glRotatef(3.0, 1.0, 0.0, 0.0);
 			}
 		}
-		if (position == 234) {	//±âµÕ
+		if (position == 234) {	//ê¸°ë‘¥
 			glPushMatrix();
 			glRotatef(90, 1.0, 0.0, 0.0);
 			gluCylinder(pQuad, 0.1, 0.1, 4.5, 50, 50);
@@ -948,7 +948,7 @@ void RolRail() {
 			gluCylinder(pQuad, 0.1, 0.1, 4.5, 50, 50);
 			glPopMatrix();
 		}
-		if (position == 241) {	//±âµÕ
+		if (position == 241) {	//ê¸°ë‘¥
 			glPushMatrix();
 			glRotatef(90, 1.0, 0.0, 0.0);
 			gluCylinder(pQuad, 0.1, 0.1, 4.5, 50, 50);
@@ -956,7 +956,7 @@ void RolRail() {
 			gluCylinder(pQuad, 0.1, 0.1, 4.5, 50, 50);
 			glPopMatrix();
 		}
-		if (position == 242) {	//°øÁßÁ¦ºñ ÈÄ Á÷¼±
+		if (position == 242) {	//ê³µì¤‘ì œë¹„ í›„ ì§ì„ 
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 12.0, 50, 50);
 			glTranslatef(0.5, 0.0, 0.0);
@@ -964,7 +964,7 @@ void RolRail() {
 			glPopMatrix();
 			glRotatef(10.0, 1.0, 0.0, 0.0);
 		}
-		if (position >= 243 && position<248) {	//°øÁßÁ¦ºñ ÈÄ ¿À¸£¸· 60µµ(+60µµ)
+		if (position >= 243 && position<248) {	//ê³µì¤‘ì œë¹„ í›„ ì˜¤ë¥´ë§‰ 60ë„(+60ë„)
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 1.4, 50, 50);
 			glTranslatef(0.5, 0.0, 0.0);
@@ -974,7 +974,7 @@ void RolRail() {
 				glRotatef(10.0, 1.0, 0.0, 0.0);
 			}
 		}
-		if (position == 258) {	//±âµÕ
+		if (position == 258) {	//ê¸°ë‘¥
 			glPushMatrix();
 			glRotatef(40, 1.0, 0.0, 0.0);
 			gluCylinder(pQuad, 0.1, 0.1, 15.5, 50, 50);
@@ -1007,7 +1007,7 @@ void RolRail() {
 			gluCylinder(pQuad, 0.1, 0.1, 2.0, 50, 50);
 			glPopMatrix();
 		}
-		if (position == 279) {	//±âµÕ
+		if (position == 279) {	//ê¸°ë‘¥
 			glPushMatrix();
 			glRotatef(90, 1.0, 0.0, 0.0);
 			gluCylinder(pQuad, 0.1, 0.1, 23.8, 50, 50);
@@ -1015,7 +1015,7 @@ void RolRail() {
 			gluCylinder(pQuad, 0.1, 0.1, 23.8, 50, 50);
 			glPopMatrix();
 		}
-		if (position >= 275 && position<284) {	//¸¶Áö¸· Ä¿ºê
+		if (position >= 275 && position<284) {	//ë§ˆì§€ë§‰ ì»¤ë¸Œ
 			glRotatef(10.0, 0.0, 1.0, 0.0);
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 1.2, 50, 50);
@@ -1026,7 +1026,7 @@ void RolRail() {
 				glRotatef(-15.0, 1.0, 0.0, 0.0);
 			}
 		}
-		if (position == 284) {	//±âµÕ
+		if (position == 284) {	//ê¸°ë‘¥
 			glPushMatrix();
 			glRotatef(105, 1.0, 0.0, 0.0);
 			gluCylinder(pQuad, 0.1, 0.1, 23.6, 50, 50);
@@ -1042,7 +1042,7 @@ void RolRail() {
 			glPopMatrix();
 			glRotatef(15.0, 1.0, 0.0, 0.0);
 		}
-		if (position >= 292 && position<436) {	//Åä³×ÀÌµµ
+		if (position >= 292 && position<436) {	//í† ë„¤ì´ë„
 			glTranslatef(0.0, -0.15, 0.0);
 			glRotatef(10.0, 0.0, 1.0, 0.0);
 			glPushMatrix();
@@ -1053,7 +1053,7 @@ void RolRail() {
 			gluCylinder(pQuad, 0.1, 0.1, 1.2, 50, 50);
 			glPopMatrix();
 		}
-		if (position == 405) {	//±âµÕ
+		if (position == 405) {	//ê¸°ë‘¥
 			glPushMatrix();
 			glRotatef(90, 1.0, 0.0, 0.0);
 			gluCylinder(pQuad, 0.1, 0.1, 4.6, 50, 50);
@@ -1061,7 +1061,7 @@ void RolRail() {
 			gluCylinder(pQuad, 0.1, 0.1, 4.6, 50, 50);
 			glPopMatrix();
 		}
-		if (position == 410) {	//±âµÕ
+		if (position == 410) {	//ê¸°ë‘¥
 			glPushMatrix();
 			glRotatef(90, 1.0, 0.0, 0.0);
 			gluCylinder(pQuad, 0.1, 0.1, 3.9, 50, 50);
@@ -1069,7 +1069,7 @@ void RolRail() {
 			gluCylinder(pQuad, 0.1, 0.1, 3.9, 50, 50);
 			glPopMatrix();
 		}
-		if (position == 415) {	//±âµÕ
+		if (position == 415) {	//ê¸°ë‘¥
 			glPushMatrix();
 			glRotatef(90, 1.0, 0.0, 0.0);
 			gluCylinder(pQuad, 0.1, 0.1, 3.1, 50, 50);
@@ -1077,7 +1077,7 @@ void RolRail() {
 			gluCylinder(pQuad, 0.1, 0.1, 3.1, 50, 50);
 			glPopMatrix();
 		}
-		if (position == 420) {	//±âµÕ
+		if (position == 420) {	//ê¸°ë‘¥
 			glPushMatrix();
 			glRotatef(90, 1.0, 0.0, 0.0);
 			gluCylinder(pQuad, 0.1, 0.1, 2.4, 50, 50);
@@ -1085,7 +1085,7 @@ void RolRail() {
 			gluCylinder(pQuad, 0.1, 0.1, 2.4, 50, 50);
 			glPopMatrix();
 		}
-		if (position == 425) {	//±âµÕ
+		if (position == 425) {	//ê¸°ë‘¥
 			glPushMatrix();
 			glRotatef(90, 1.0, 0.0, 0.0);
 			gluCylinder(pQuad, 0.1, 0.1, 1.6, 50, 50);
@@ -1093,7 +1093,7 @@ void RolRail() {
 			gluCylinder(pQuad, 0.1, 0.1, 1.6, 50, 50);
 			glPopMatrix();
 		}
-		if (position == 430) {	//±âµÕ
+		if (position == 430) {	//ê¸°ë‘¥
 			glPushMatrix();
 			glRotatef(90, 1.0, 0.0, 0.0);
 			gluCylinder(pQuad, 0.1, 0.1, 0.9, 50, 50);
@@ -1101,7 +1101,7 @@ void RolRail() {
 			gluCylinder(pQuad, 0.1, 0.1, 0.9, 50, 50);
 			glPopMatrix();
 		}
-		if (position == 432) {	//±âµÕ
+		if (position == 432) {	//ê¸°ë‘¥
 			glPushMatrix();
 			glRotatef(90, 1.0, 0.0, 0.0);
 			gluCylinder(pQuad, 0.1, 0.1, 0.7, 50, 50);
@@ -1109,7 +1109,7 @@ void RolRail() {
 			gluCylinder(pQuad, 0.1, 0.1, 0.7, 50, 50);
 			glPopMatrix();
 		}
-		if (position == 439) {	//Åä³×ÀÌµµ ÈÄ ¿À¸£¸· Àü
+		if (position == 439) {	//í† ë„¤ì´ë„ í›„ ì˜¤ë¥´ë§‰ ì „
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 4.0, 50, 50);
 			glTranslatef(0.5, 0.0, 0.0);
@@ -1117,7 +1117,7 @@ void RolRail() {
 			glPopMatrix();
 			glRotatef(10.0, 1.0, 0.0, 0.0);
 		}
-		if (position >= 440 && position<445) {	//Åä³×ÀÌµµ ÈÄ ¿À¸£¸· 60µµ(+60µµ)
+		if (position >= 440 && position<445) {	//í† ë„¤ì´ë„ í›„ ì˜¤ë¥´ë§‰ 60ë„(+60ë„)
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 1.4, 50, 50);
 			glTranslatef(0.5, 0.0, 0.0);
@@ -1135,7 +1135,7 @@ void RolRail() {
 			glPopMatrix();
 			glRotatef(-10.0, 1.0, 0.0, 0.0);
 		}
-		if (position == 454) {	//±âµÕ
+		if (position == 454) {	//ê¸°ë‘¥
 			glPushMatrix();
 			glRotatef(90, 1.0, 0.0, 0.0);
 			gluCylinder(pQuad, 0.1, 0.1, 8.0, 50, 50);
@@ -1143,7 +1143,7 @@ void RolRail() {
 			gluCylinder(pQuad, 0.1, 0.1, 8.0, 50, 50);
 			glPopMatrix();
 		}
-		if (position >= 450 && position<457) {	//¸¶Áö¸· ³»¸®¸· 20µµ(-80µµ)
+		if (position >= 450 && position<457) {	//ë§ˆì§€ë§‰ ë‚´ë¦¬ë§‰ 20ë„(-80ë„)
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 1.4, 50, 50);
 			glTranslatef(0.5, 0.0, 0.0);
@@ -1161,7 +1161,7 @@ void RolRail() {
 			glPopMatrix();
 			glRotatef(10.0, 1.0, 0.0, 0.0);
 		}
-		if (position >= 478 && position<480) {	//³»¸®¸· ÈÄ ÆòÁö -20µµ
+		if (position >= 478 && position<480) {	//ë‚´ë¦¬ë§‰ í›„ í‰ì§€ -20ë„
 			glPushMatrix();
 			gluCylinder(pQuad, 0.1, 0.1, 1.4, 50, 50);
 			glTranslatef(0.5, 0.0, 0.0);
@@ -1181,7 +1181,7 @@ void RolRail() {
 			gluCylinder(pQuad, 0.1, 0.1, 7.0, 50, 50);
 			glPopMatrix();
 		}
-		//·¹ÀÏ+±âµÕ ³¡
+		//ë ˆì¼+ê¸°ë‘¥ ë
 		if (position == RolPosition[0]) {
 			RolBoxHead();
 		}
@@ -1193,12 +1193,12 @@ void RolRail() {
 		}
 
 	}
-	glPushMatrix();		//³»¸®¸· ¿øÅë
+	glPushMatrix();		//ë‚´ë¦¬ë§‰ ì›í†µ
 	glTranslatef(-55.5, 11.0, 58.3);
 	glRotatef(-90.0, 0.0, 1.0, 0.0);
 	glRotatef(-60.0, 1.0, 0.0, 0.0);
 	glScalef(1.0, 1.0, 6.0);
-	glColor3f((float)171 / 255.0, (float)121 / 255.0, (float)98 / 255.0);	//¸öÅë»ö±ò
+	glColor3f((float)171 / 255.0, (float)121 / 255.0, (float)98 / 255.0);	//ëª¸í†µìƒ‰ê¹”
 	glutSolidTorus(1.0, 3.0, 25, 25);
 	glColor3f(0.0, 0.0, 0.0);
 	glutWireTorus(1.0, 3.0, 25, 25);
@@ -1207,7 +1207,7 @@ void RolRail() {
 	glPopMatrix();
 }
 
-void RolSpeedControl() {	//·Ñ·¯ÄÚ½ºÅÍ ¼Óµµ Á¶Àı - 1,2,3´Ü°è
+void RolSpeedControl() {	//ë¡¤ëŸ¬ì½”ìŠ¤í„° ì†ë„ ì¡°ì ˆ - 1,2,3ë‹¨ê³„
 	if (RolPosition[0] >= 92 && RolPosition[0] < 103) {
 		RolSpeed = 3;
 	}
@@ -1244,7 +1244,7 @@ void DropTower() {
 	glPushMatrix();
 	glTranslatef(-21.0, 0.0, -21.0);
 
-	glPushMatrix();	//¸ŞÀÎ ±âµÕ
+	glPushMatrix();	//ë©”ì¸ ê¸°ë‘¥
 	glRotatef(90, 1.0, 0.0, 0.0);
 	glColor3f((float)127 / 255.0, (float)127 / 255.0, (float)127 / 255.0);
 	glColor3f((float)200 / 255.0, (float)25 / 255.0, (float)25 / 255.0);
@@ -1260,7 +1260,7 @@ void DropTower() {
 	glutSolidTorus(1.0, 2.8, 15, 15);
 	gluDisk(pQuad, 1.7, 6.0, 8, 1);
 	glPopMatrix();
-	if (OnRide == 3) {	//ÁÖÀÎ°ø ÅÂ¿ì±â
+	if (OnRide == 3) {	//ì£¼ì¸ê³µ íƒœìš°ê¸°
 		glPushMatrix();
 		glTranslatef(4.6, 0.6, 0.0);
 		glRotatef(-90.0, 0.0, 1.0, 0.0);
@@ -1277,9 +1277,9 @@ void MakeTicketBox() {
 	
 	glTranslatef(0.0, -26.6, 0.0);
 
-	glPushMatrix();	//¸ÅÇ¥¼Ò ¸öÅë
+	glPushMatrix();	//ë§¤í‘œì†Œ ëª¸í†µ
 	glScalef(1.0, 1.5, 1.0);
-	glColor3f((float)127 / 255.0, (float)127 / 255.0, (float)127 / 255.0);	//¸ÅÇ¥¼Ò »ö
+	glColor3f((float)127 / 255.0, (float)127 / 255.0, (float)127 / 255.0);	//ë§¤í‘œì†Œ ìƒ‰
 	glutSolidCube(2.0);
 	glTranslatef(0.0, -0.5, -0.55);
 	glColor3f(0.0, 0.0, 0.0);
@@ -1290,7 +1290,7 @@ void MakeTicketBox() {
 	glTranslatef(0.0, 1.5, 0.0);
 	glRotatef(45.0, 0.0, 1.0, 0.0);
 	glScalef(1.5, 2.0, 1.5);
-	glColor3f((float)200 / 255.0, (float)55 / 255.0, (float)55 / 255.0);	//¸ÅÇ¥¼Ò ÁöºØ »ö
+	glColor3f((float)200 / 255.0, (float)55 / 255.0, (float)55 / 255.0);	//ë§¤í‘œì†Œ ì§€ë¶• ìƒ‰
 	glutSolidOctahedron();
 	glPopMatrix();
 
@@ -1298,23 +1298,23 @@ void MakeTicketBox() {
 }
 
 void TicketOffice() {
-	glPushMatrix();	//¹ÙÀÌÅ· ¸ÅÇ¥¼Ò
+	glPushMatrix();	//ë°”ì´í‚¹ ë§¤í‘œì†Œ
 	glTranslatef(15.5, 0.0, 12.0);
 	MakeTicketBox();
 	glPopMatrix();
 
-	glPushMatrix();	//°ü¶÷Â÷ ¸ÅÇ¥¼Ò
+	glPushMatrix();	//ê´€ëŒì°¨ ë§¤í‘œì†Œ
 	glTranslatef(0.0, 0.0, -4.0);
 	MakeTicketBox();
 	glPopMatrix();
 
-	glPushMatrix();	//ÀÚÀÌµå·Ó ¸ÅÇ¥¼Ò
+	glPushMatrix();	//ìì´ë“œë¡­ ë§¤í‘œì†Œ
 	glTranslatef(-13.5, 0.0, -21.0);
 	glRotatef(-90.0, 0.0, 1.0, 0.0);
 	MakeTicketBox();
 	glPopMatrix();
 
-	glPushMatrix();	//·Ñ·¯ÄÚ½ºÅÍ ¸ÅÇ¥¼Ò
+	glPushMatrix();	//ë¡¤ëŸ¬ì½”ìŠ¤í„° ë§¤í‘œì†Œ
 	glTranslatef(31.5, 0.0, -26.0);
 	glRotatef(90.0, 0.0, 1.0, 0.0);
 	MakeTicketBox();
@@ -1325,9 +1325,9 @@ void MakeGround() {
 	glPushMatrix();
 	glTranslatef(0.0, -30.0, 0.0);
 	glScalef(1.0, 0.05, 1.0);	// 70 * 0.05 = 3.5
-	glColor3f((float)94 / 255.0, (float)161 / 255.0, (float)82 / 255.0);	//¹Ú½º
+	glColor3f((float)94 / 255.0, (float)161 / 255.0, (float)82 / 255.0);	//ë°•ìŠ¤
 	glutSolidCube(70);
-	glColor3f((float)0 / 255.0, (float)0 / 255.0, (float)0 / 255.0);	//Å×µÎ¸®
+	glColor3f((float)0 / 255.0, (float)0 / 255.0, (float)0 / 255.0);	//í…Œë‘ë¦¬
 	glutWireCube(70);
 	glPopMatrix();
 }
@@ -1338,10 +1338,10 @@ void ParkDisplay() {
 	GLUquadricObj *pQuad;
 	pQuad = gluNewQuadric();
 
-	////////////////////////////////////////°Çµå¸®Áö ¸»±â/////////////////////////////////////////////////////////
-	glMatrixMode(GL_PROJECTION);	//½ÃÁ¡º¯È­¸¦ ¿øÈ°ÇÏ°Ô ÇÏ±âÀ§ÇØ ¿©±â³ÖÀ½
+	////////////////////////////////////////ê±´ë“œë¦¬ì§€ ë§ê¸°/////////////////////////////////////////////////////////
+	glMatrixMode(GL_PROJECTION);	//ì‹œì ë³€í™”ë¥¼ ì›í™œí•˜ê²Œ í•˜ê¸°ìœ„í•´ ì—¬ê¸°ë„£ìŒ
 	glLoadIdentity();
-	if (View == 1) {	// 1 = 1ÀÎÄª / 0 = 3ÀÎÄª
+	if (View == 1) {	// 1 = 1ì¸ì¹­ / 0 = 3ì¸ì¹­
 		gluPerspective(60.0f, fAspect, 1.0, 100.0);
 	}
 	else {
@@ -1351,17 +1351,17 @@ void ParkDisplay() {
 	glLoadIdentity();
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	glBegin(GL_POLYGON);	//¹ã³· ¹è°æ
-	glColor3f((float)SkyColor[0] / 255.0, (float)SkyColor[1] / 255.0, (float)SkyColor[2] / 255.0);	//¹è°æ»ö(ÇÏ´Ã»ö)
+	glBegin(GL_POLYGON);	//ë°¤ë‚® ë°°ê²½
+	glColor3f((float)SkyColor[0] / 255.0, (float)SkyColor[1] / 255.0, (float)SkyColor[2] / 255.0);	//ë°°ê²½ìƒ‰(í•˜ëŠ˜ìƒ‰)
 	glVertex3f(150.0, 150.0, -80.0);
 	glVertex3f(-150.0, 150.0, -80.0);
-	glColor3f(1.0, 1.0, 1.0);	//¾Æ·¡ÂÊÀº Èò»ö
+	glColor3f(1.0, 1.0, 1.0);	//ì•„ë˜ìª½ì€ í°ìƒ‰
 	glVertex3f(-150.0, -150.0, -80.0);
 	glVertex3f(150.0, -150.0, -80.0);
 	glEnd();
 
 	glPushMatrix();
-	if (View == 1) {	//1ÀÎÄª
+	if (View == 1) {	//1ì¸ì¹­
 		gluLookAt(0.0, 0.0, 0.0, 0.0, 0.0, -1.0, 0.0, 1.0, 0.0);
 		glRotatef(ViewUpAngle, 1.0, 0.0, 0.0);
 		glRotatef(ViewAngle, 0.0, 1.0, 0.0);
@@ -1371,7 +1371,7 @@ void ParkDisplay() {
 	}
 	else {
 		glTranslatef(50.0, 50.0, 0.0);
-		if (xRot + MouseRotY < 0.0) {	//°¢µµÁ¦ÇÑÇÏ±â
+		if (xRot + MouseRotY < 0.0) {	//ê°ë„ì œí•œí•˜ê¸°
 			glRotatef(0.0, 1.0, 0.0, 0.0);
 		}
 		else if (xRot + MouseRotY > 90.0) {
@@ -1383,26 +1383,26 @@ void ParkDisplay() {
 		glRotatef(yRot-MouseRotX, 0.0, 1.0, 0.0);
 	}
 
-	Cloud();	//±¸¸§¤»
+	Cloud();	//êµ¬ë¦„ã…‹
 
-	MakeGround();	//¹Ù´Ú
+	MakeGround();	//ë°”ë‹¥
 
-	Viking();		//¹ÙÀÌÅ·
+	Viking();		//ë°”ì´í‚¹
 
-	Wheel();		//°ü¶÷Â÷
+	Wheel();		//ê´€ëŒì°¨
 
 	if (FireworkTime == 1) {
-		PlayFireWork();	//ºÒ²É³îÀÌ
+		PlayFireWork();	//ë¶ˆê½ƒë†€ì´
 	}
 
-	TicketOffice();	//¸ÅÇ¥¼Ò'µé'
+	TicketOffice();	//ë§¤í‘œì†Œ'ë“¤'
 
-	DropTower();	//ÀÚÀÌµå·Ó
+	DropTower();	//ìì´ë“œë¡­
 
-	RolRail();		//·Ñ·¯ÄÚ½ºÅÍ
+	RolRail();		//ë¡¤ëŸ¬ì½”ìŠ¤í„°
 
-	if (OnRide == 0&&View==0) {	//³îÀÌ±â±¸ ¾ÈÅÀÀ»¶§+3ÀÎÄª ½ÃÁ¡ÀÏ¶§
-		Hero();	//ÁÖÀÎ°ø
+	if (OnRide == 0&&View==0) {	//ë†€ì´ê¸°êµ¬ ì•ˆíƒ”ì„ë•Œ+3ì¸ì¹­ ì‹œì ì¼ë•Œ
+		Hero();	//ì£¼ì¸ê³µ
 	}
 
 	glPopMatrix();
@@ -1474,7 +1474,7 @@ void MoveDropToewr(int value) {
 }
 
 void RotArmLeg(int value) {
-	if (HeroMoving == 1) {	//ÁÖÀÎ°ø ÆÈ´Ù¸® È¸Àü
+	if (HeroMoving == 1) {	//ì£¼ì¸ê³µ íŒ”ë‹¤ë¦¬ íšŒì „
 		HeroMotion = HeroMotion + HeroMotionAdd;
 		if (HeroMotion > 90 || HeroMotion < -90) {
 			HeroMotionAdd = -HeroMotionAdd;
@@ -1482,7 +1482,7 @@ void RotArmLeg(int value) {
 	}
 
 	HeroMoveCheck++;
-	if (HeroMoveCheck == 3) {	//¾È¿òÁ÷ÀÌ¸é ÆÈ´Ù¸® ¾Æ·¡·Î
+	if (HeroMoveCheck == 3) {	//ì•ˆì›€ì§ì´ë©´ íŒ”ë‹¤ë¦¬ ì•„ë˜ë¡œ
 		HeroMoving = 0;
 		HeroMotion = 0.0;
 	}
@@ -1507,7 +1507,7 @@ void FireworkPlay(int value) {
 	glutPostRedisplay();
 }
 
-void WorldTimer(int value) {	//¹ã³· µ¹¾Æ°¡°Ô ¸¸µå´Â Å¸ÀÌ¸Ó
+void WorldTimer(int value) {	//ë°¤ë‚® ëŒì•„ê°€ê²Œ ë§Œë“œëŠ” íƒ€ì´ë¨¸
 	WorldTime++;
 	if (WorldTime == 480) {
 		WorldTime = 0;
@@ -1529,7 +1529,7 @@ void WorldTimer(int value) {	//¹ã³· µ¹¾Æ°¡°Ô ¸¸µå´Â Å¸ÀÌ¸Ó
 				SkyColor[i]--;
 			}
 		}
-		if (WorldTime >= 180 && FireworkTime == 0) {	//¹ãÀÌµÇ¸é ÀÚµ¿À¸·Î ºÒ²É³îÀÌ
+		if (WorldTime >= 180 && FireworkTime == 0) {	//ë°¤ì´ë˜ë©´ ìë™ìœ¼ë¡œ ë¶ˆê½ƒë†€ì´
 			FireworkTime = 1;
 			for (int i = 0; i < 5; i++) {
 				FireWorkPosition[i][0] = (float)((rand() % 62) - 31);
@@ -1551,7 +1551,7 @@ void WorldTimer(int value) {	//¹ã³· µ¹¾Æ°¡°Ô ¸¸µå´Â Å¸ÀÌ¸Ó
 		if (SkyColor[2] <= 100) {
 			SkyColor[2]++;
 		}
-		if (WorldTime <= 300 && FireworkTime == 0) {	//¹ãÀÌµÇ¸é ÀÚµ¿À¸·Î ºÒ²É³îÀÌ
+		if (WorldTime <= 300 && FireworkTime == 0) {	//ë°¤ì´ë˜ë©´ ìë™ìœ¼ë¡œ ë¶ˆê½ƒë†€ì´
 			FireworkTime = 1;
 			for (int i = 0; i < 5; i++) {
 				FireWorkPosition[i][0] = (float)((rand() % 62) - 31);
@@ -1608,7 +1608,7 @@ void ChangeSize(int NewWidth, int NewHeight) {
 	glLoadIdentity();
 }
 
-void SpecialInsert(int Key, int x, int y) {	//1ÀÎÄªÀÏ¶§ °¢µµ
+void SpecialInsert(int Key, int x, int y) {	//1ì¸ì¹­ì¼ë•Œ ê°ë„
 	if (Key == GLUT_KEY_LEFT) {
 		ViewAngle = ViewAngle - 6.0;
 	}
@@ -1616,7 +1616,7 @@ void SpecialInsert(int Key, int x, int y) {	//1ÀÎÄªÀÏ¶§ °¢µµ
 		ViewAngle = ViewAngle + 6.0;
 	}
 
-	if (Key == GLUT_KEY_UP && ViewUpAngle >= -90.0) {	//¿Ã¸®°í³»¸®´Â°Å ÃÖ´ëÃÖ¼Ò°¢µµ Á¦ÇÑ
+	if (Key == GLUT_KEY_UP && ViewUpAngle >= -90.0) {	//ì˜¬ë¦¬ê³ ë‚´ë¦¬ëŠ”ê±° ìµœëŒ€ìµœì†Œê°ë„ ì œí•œ
 		ViewUpAngle = ViewUpAngle - 6.0;
 	}
 	if (Key == GLUT_KEY_DOWN && ViewUpAngle <= 90.0) {
@@ -1625,7 +1625,7 @@ void SpecialInsert(int Key, int x, int y) {	//1ÀÎÄªÀÏ¶§ °¢µµ
 	glutPostRedisplay();
 }
 
-void KeyboardInsert(unsigned char key, int x, int y) {	//Ä³¸¯ÅÍ ÀÌµ¿
+void KeyboardInsert(unsigned char key, int x, int y) {	//ìºë¦­í„° ì´ë™
 	switch (key)
 	{
 	case 'a':
@@ -1665,14 +1665,14 @@ void KeyboardInsert(unsigned char key, int x, int y) {	//Ä³¸¯ÅÍ ÀÌµ¿
 		CalculateViewZM();
 		break;
 	case 'p':
-		if (OnRide == 0 && View == 0) {	//³îÀÌ±â±¸ Å¾½Â
+		if (OnRide == 0 && View == 0) {	//ë†€ì´ê¸°êµ¬ íƒ‘ìŠ¹
 			ChangeRide();
 		}
 		else {
 			OnRide = 0;
 		}
 		break;
-	case 'f':	//ºÒ²É³îÀÌ °­Á¦½ÃÀÛ
+	case 'f':	//ë¶ˆê½ƒë†€ì´ ê°•ì œì‹œì‘
 		FireworkTime = 1;
 		for (int i = 0; i < 5; i++) {
 			FireWorkPosition[i][0] = (float)((rand() % 62) - 31);
@@ -1695,7 +1695,7 @@ void MyMouseClick(GLint Button, GLint State, GLint X, GLint Y) {
 		ClickY = (float)Y;
 		mousecheck = 1;
 	}
-	else {	//Å¬¸¯À» ¶¼¸é ÀÌµ¿ÇÑ ¸¸Å­ ÀúÀå
+	else {	//í´ë¦­ì„ ë–¼ë©´ ì´ë™í•œ ë§Œí¼ ì €ì¥
 		xRot = xRot + MouseRotY;
 		yRot = yRot - MouseRotX;
 		MouseRotX = 0.0;
@@ -1725,13 +1725,13 @@ void MyMainMenu(int in) {
 }
 
 void TimeSubMenu(int in) {
-	if (in == 1) {	//³·
+	if (in == 1) {	//ë‚®
 		WorldTime = 0;
 		SkyColor[0] = 165;
 		SkyColor[1] = 205;
 		SkyColor[2] = 255;
 	}
-	if (in == 2) {	//¹ã
+	if (in == 2) {	//ë°¤
 		WorldTime = 240;
 		SkyColor[0] = 35;
 		SkyColor[1] = 50;
@@ -1742,12 +1742,12 @@ void TimeSubMenu(int in) {
 }
 
 void ViewSubMenu(int in) {
-	if (in == 1){	//1ÀÎÄª
+	if (in == 1){	//1ì¸ì¹­
 		View = 1;
 		ResetHero();
 		ResetView();
 	}
-	if (in == 2) {	//3ÀÎÄª
+	if (in == 2) {	//3ì¸ì¹­
 		View = 0;
 		ResetHero();
 		ResetView();
@@ -1761,43 +1761,43 @@ void MenuFunc() {
 	glutAddMenuEntry("Night", 2);
 
 	glutCreateMenu(ViewSubMenu);
-	glutAddMenuEntry("Hero(1ÀÎÄª)", 1);
-	glutAddMenuEntry("God(3ÀÎÄª)", 2);
+	glutAddMenuEntry("Hero(1ì¸ì¹­)", 1);
+	glutAddMenuEntry("God(3ì¸ì¹­)", 2);
 
 	glutCreateMenu(MyMainMenu);
-	glutAddSubMenu("½Ã°£", 1);
-	glutAddSubMenu("½ÃÁ¡", 2);
+	glutAddSubMenu("ì‹œê°„", 1);
+	glutAddSubMenu("ì‹œì ", 2);
 
 	glutAttachMenu(GLUT_RIGHT_BUTTON);
 }
 
 void SetDisplay() {
-	//¼³¸í
+	//ì„¤ëª…
 	cout << endl;
-	cout << "  **************20153308 ¼Û¹Î±¤ ³îÀÌ°ø¿ø**************" << endl;
+	cout << "  **************20153308 ì†¡ë¯¼ê´‘ ë†€ì´ê³µì›**************" << endl;
 	cout << "  ****************************************************" << endl;
 	cout << "  **                                                **" << endl;
-	cout << "  **  ¸Ş´º - ¸¶¿ì½º ¿À¸¥ÂÊ Å¬¸¯                     **" << endl;
-	cout << "  **    (¹ã³· º¯°æ, ½ÃÁ¡ º¯°æ °¡´É)                 **" << endl;
+	cout << "  **  ë©”ë‰´ - ë§ˆìš°ìŠ¤ ì˜¤ë¥¸ìª½ í´ë¦­                     **" << endl;
+	cout << "  **    (ë°¤ë‚® ë³€ê²½, ì‹œì  ë³€ê²½ ê°€ëŠ¥)                 **" << endl;
 	cout << "  **                                                **" << endl;
-	cout << "  **  ºÒ²É³îÀÌ - f                                  **" << endl;
+	cout << "  **  ë¶ˆê½ƒë†€ì´ - f                                  **" << endl;
 	cout << "  **                                                **" << endl;
-	cout << "  **  3ÀÎÄª ½ÃÁ¡                                    **" << endl;
-	cout << "  **    ÀÌµ¿ - w,a,s,d                              **" << endl;
-	cout << "  **    È¸Àü - µå·¡±×                               **" << endl;
-	cout << "  **    ³îÀÌ±â±¸ Å¾½Â - p(³îÀÌ±â±¸ ¾Õ ¸ÅÇ¥¼Ò¿¡¼­)   **" << endl;
+	cout << "  **  3ì¸ì¹­ ì‹œì                                     **" << endl;
+	cout << "  **    ì´ë™ - w,a,s,d                              **" << endl;
+	cout << "  **    íšŒì „ - ë“œë˜ê·¸                               **" << endl;
+	cout << "  **    ë†€ì´ê¸°êµ¬ íƒ‘ìŠ¹ - p(ë†€ì´ê¸°êµ¬ ì• ë§¤í‘œì†Œì—ì„œ)   **" << endl;
 	cout << "  **                                                **" << endl;
-	cout << "  **  1ÀÎÄª ½ÃÁ¡                                    **" << endl;
-	cout << "  **    ÀÌµ¿ - w,a,s,d                              **" << endl;
-	cout << "  **    ¹æÇâÁ¶Àı - ¹æÇâÅ°                           **" << endl;
+	cout << "  **  1ì¸ì¹­ ì‹œì                                     **" << endl;
+	cout << "  **    ì´ë™ - w,a,s,d                              **" << endl;
+	cout << "  **    ë°©í–¥ì¡°ì ˆ - ë°©í–¥í‚¤                           **" << endl;
 	cout << "  **                                                **" << endl;
 	cout << "  ****************************************************" << endl;
 	cout << "  ****************************************************" << endl;
 
-	glClearColor((float)255 / 255.0, (float)255 / 255.0, (float)255 / 255.0, 0.0f);	//»öÃÊ±âÈ­
+	glClearColor((float)255 / 255.0, (float)255 / 255.0, (float)255 / 255.0, 0.0f);	//ìƒ‰ì´ˆê¸°í™”
 	glEnable(GL_DEPTH_TEST);
 	glShadeModel(GL_SMOOTH);
-	for (int i = 0; i < 10; i++) {	//±¸¸§ À§Ä¡¶û Å©±â ÁöÁ¤
+	for (int i = 0; i < 10; i++) {	//êµ¬ë¦„ ìœ„ì¹˜ë‘ í¬ê¸° ì§€ì •
 		CloudPosition[i][0] = (float)((rand() % 80) - 40);
 		CloudPosition[i][1] = (float)(rand() % 15);
 		CloudPosition[i][2] = (float)((rand() % 80) - 40);
@@ -1811,7 +1811,7 @@ int main(int argc, char **argv) {
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize(800, 800);
 	glutInitWindowPosition(0, 0);
-	glutCreateWindow("¹Î±¤·£µå");
+	glutCreateWindow("ë¯¼ê´‘ëœë“œ");
 
 	srand(time(NULL));
 
